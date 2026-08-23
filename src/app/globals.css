@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --ink: #f6f5ec;
+  --ink-foreground: #1a1f16;
+  --surface: #eae8d6;
+  --surface-foreground: #1a1f16;
+  --muted: #6c7460;
+  --border: #d7d6bd;
+  --tulsi: #3f6b2e;
+  --tulsi-foreground: #f6f5ec;
+  --sindoor: #a8442f;
+  --ring: #3f6b2e;
+}
+
+.dark {
+  --ink: #10140d;
+  --ink-foreground: #e9ecd8;
+  --surface: #181f13;
+  --surface-foreground: #e9ecd8;
+  --muted: #8b9479;
+  --border: #283220;
+  --tulsi: #7cbf5a;
+  --tulsi-foreground: #10140d;
+  --sindoor: #e0785f;
+  --ring: #7cbf5a;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-tulsi: var(--tulsi);
+  --color-tulsi-foreground: var(--tulsi-foreground);
+  --color-sindoor: var(--sindoor);
+  --color-ring: var(--ring);
+  --font-display: var(--font-tiro-devanagari), "Noto Sans Devanagari", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--ink);
+  color: var(--ink-foreground);
+  font-family: var(--font-sans);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: var(--tulsi);
+  color: var(--tulsi-foreground);
+}
+
+/* subtle grain so flat panels don't read as a template default */
+.ink-grain {
+  position: relative;
+}
+.ink-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+  background-size: 18px 18px;
+}
+
+/* leaf-vein divider motif, used sparingly as the page signature */
+.leaf-divider {
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--tulsi) 0px,
+    var(--tulsi) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  opacity: 0.35;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in {
+    animation: none;
+  }
+}
